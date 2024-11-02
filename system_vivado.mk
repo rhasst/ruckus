@@ -44,13 +44,45 @@ ifndef REPORT_QOR
 export REPORT_QOR = 0
 endif
 
-ifndef GZIP_BUILD_IMAGE
-export GZIP_BUILD_IMAGE = 0
+##############################################################################
+
+ifndef GEN_BIT_IMAGE
+export GEN_BIT_IMAGE = 1
+endif
+
+ifndef GEN_BIT_IMAGE_GZIP
+export GEN_BIT_IMAGE_GZIP = 0
 endif
 
 ifndef GEN_BIN_IMAGE
 export GEN_BIN_IMAGE = 0
 endif
+
+ifndef GEN_BIN_IMAGE_GZIP
+export GEN_BIN_IMAGE_GZIP = 0
+endif
+
+ifndef GEN_PDI_IMAGE
+export GEN_PDI_IMAGE = 1
+endif
+
+ifndef GEN_PDI_IMAGE_GZIP
+export GEN_PDI_IMAGE_GZIP = 0
+endif
+
+ifndef GEN_MCS_IMAGE
+export GEN_MCS_IMAGE = 1
+endif
+
+ifndef GEN_MCS_IMAGE_GZIP
+export GEN_MCS_IMAGE_GZIP = 0
+endif
+
+ifndef GEN_XSA_IMAGE
+export GEN_XSA_IMAGE = 0
+endif
+
+##############################################################################
 
 ifndef RECONFIG_CHECKPOINT
 export RECONFIG_CHECKPOINT = 0
@@ -217,6 +249,7 @@ test:
 	@echo GIT_HASH_LONG: $(GIT_HASH_LONG)
 	@echo GIT_HASH_SHORT: $(GIT_HASH_SHORT)
 	@echo IMAGENAME: $(IMAGENAME)
+	@echo BUILD_STRING: $${BUILD_STRING}
 	@echo EMBED_PROC: $(EMBED_PROC)
 	@echo EMBED_TYPE: $(EMBED_TYPE)
 	@echo EMBED_GUI: $(EMBED_GUI)
@@ -264,8 +297,8 @@ gui : $(SOURCE_DEPEND)
 ###############################################################
 #### Vivado Batch #############################################
 ###############################################################
-.PHONY : bit mcs prom
-bit mcs prom : $(SOURCE_DEPEND)
+.PHONY : bit mcs prom pdi
+bit mcs prom pdi : $(SOURCE_DEPEND)
 	$(call ACTION_HEADER,"Vivado Batch Build for .bit/.mcs")
 	@cd $(OUT_DIR); vivado -mode batch -source $(RUCKUS_DIR)/vivado/build.tcl
 
