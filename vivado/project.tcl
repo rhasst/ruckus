@@ -31,20 +31,16 @@ if { [file exists ${VIVADO_PROJECT}.xpr]} {
 } else {
 
    # Create project
-   # Check if board is specified, if so use it, else use PRJ_PART
+   create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
+
+   # Check if board is specified, if so use it.
    if {[info exists BOARD_PART]} {
 
       # Note that -part must be specified, otherwise vivado will pick something
       # on its own and then complain that board_part does not match PRJ_PART.
-      create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
       set_property board_part ${BOARD_PART} [current_project]
 
-   } else {
-
-      create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
-
    }
-
 }
 
 # Message Filtering Script
