@@ -236,6 +236,7 @@ test:
 	@echo PROJ_DIR: $(PROJ_DIR)
 	@echo PRJ_VERSION: $(PRJ_VERSION)
 	@echo PRJ_PART: $(PRJ_PART)
+	@echo BOARD_PART: $(BOARD_PART)
 	@echo TOP_DIR: $(TOP_DIR)
 	@echo OUT_DIR: $(OUT_DIR)
 	@echo IMAGES_DIR: $(IMAGES_DIR)

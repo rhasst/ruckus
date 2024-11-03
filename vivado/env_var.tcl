@@ -17,6 +17,8 @@
 
 # Project Variables
 set PRJ_PART         $::env(PRJ_PART)
+set BOARD_PART       $::env(BOARD_PART)
+set BOARD_REPO       $::env(BOARD_REPO)
 set PROJECT          $::env(PROJECT)
 set PRJ_VERSION      $::env(PRJ_VERSION)
 set PROJ_DIR         $::env(PROJ_DIR)

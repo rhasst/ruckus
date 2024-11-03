@@ -20,12 +20,31 @@ source -quiet $::env(RUCKUS_DIR)/vivado/proc.tcl
 # Check for unsupported versions that ruckus does NOT support
 CheckVivadoVersion
 
+# Set board repo if it exists. Note this param must be set before open_project
+if {[info exists BOARD_REPO]} {
+    set_param board.repoPaths ${BOARD_REPO}
+}
+
 set try_to_open [catch { open_project -quiet ${VIVADO_PROJECT} }]
 if { [file exists ${VIVADO_PROJECT}.xpr]} {
    open_project -quiet ${VIVADO_PROJECT}
 } else {
-   # Create a Project
-   create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
+
+   # Create project
+   # Check if board is specified, if so use it, else use PRJ_PART
+   if {[info exists BOARD_PART]} {
+
+      # Note that -part must be specified, otherwise vivado will pick something
+      # on its own and then complain that board_part does not match PRJ_PART.
+      create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
+      set_property board_part ${BOARD_PART} [current_project]
+
+   } else {
+
+      create_project ${VIVADO_PROJECT} -force ${OUT_DIR} -part ${PRJ_PART}
+
+   }
+
 }
 
 # Message Filtering Script
